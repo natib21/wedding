@@ -22,11 +22,12 @@ export default function WeddingGallerySequence({ images, accent = "#e1ff00" }: S
   });
 
 
-  // Smooth out the scroll progress to avoid "jittery" mouse wheels
+  // Smooth out the scroll progress - higher stiffness = faster response, higher damping = less oscillation
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
+    stiffness: 400,
+    damping: 40,
+    restDelta: 0.0001,
+    mass: 0.5
   });
 
   const scheduleX = useTransform(smoothProgress, [0.25, 0.35, 0.75, 0.85], [-100, 40, 40, -100]);
@@ -75,10 +76,10 @@ export default function WeddingGallerySequence({ images, accent = "#e1ff00" }: S
             opacity: opacity1,
             backgroundImage: `url(${images[0]})`
           }}
-          className="absolute inset-0 bg-cover bg-center will-change-[transform,filter,opacity]"
+          className="absolute inset-0 bg-cover bg-center will-change-[transform,filter,opacity] transform-gpu"
         />
 
-        {/* Layer 2: Rising Veil */}
+{/* Layer 2: Rising Veil */}
         <motion.div
           style={{
             clipPath: clip2,
@@ -87,10 +88,10 @@ export default function WeddingGallerySequence({ images, accent = "#e1ff00" }: S
             backgroundImage: `url(${images[1]})`,
             zIndex: 10
           }}
-          className="absolute inset-0 bg-cover bg-center will-change-[clip-path,transform]"
+          className="absolute inset-0 bg-cover bg-center will-change-[clip-path,transform] transform-gpu"
         />
 
-        {/* Layer 3: Expanding Aperture */}
+{/* Layer 3: Expanding Aperture */}
         <motion.div
           style={{
             clipPath: clip3,
@@ -98,10 +99,10 @@ export default function WeddingGallerySequence({ images, accent = "#e1ff00" }: S
             backgroundImage: `url(${images[2]})`,
             zIndex: 20
           }}
-          className="absolute inset-0 bg-cover bg-center will-change-[clip-path,transform]"
+          className="absolute inset-0 bg-cover bg-center will-change-[clip-path,transform] transform-gpu"
         />
 
-        {/* Layer 4: Rushing Focus */}
+{/* Layer 4: Rushing Focus */}
         <motion.div
           style={{
             scale: scale4,
@@ -109,11 +110,11 @@ export default function WeddingGallerySequence({ images, accent = "#e1ff00" }: S
             backgroundImage: `url(${images[3]})`,
             zIndex: 30
           }}
-          className="absolute inset-0 bg-cover bg-center will-change-transform"
+          className="absolute inset-0 bg-cover bg-center will-change-transform transform-gpu"
         />
-        <motion.div
+<motion.div
           style={{ x: scheduleX, opacity: scheduleOpacity }}
-          className="absolute left-8 top-1/2 -translate-y-1/2 z-[100] flex flex-col gap-10 border-l border-white/30 pl-8 py-10"
+          className="absolute left-8 top-1/2 -translate-y-1/2 z-[100] flex flex-col gap-10 border-l border-white/30 pl-8 py-10 transform-gpu will-change-transform"
         >
           <div className="mb-8 ml-[-8px]">
             <h2
@@ -179,17 +180,17 @@ function ScheduleItem({ item, index, smoothProgress, accent }: any) {
   const itemScale = useTransform(smoothProgress, [start, start + 0.05], [0.9, 1]);
   const dotColor = useTransform(smoothProgress, [start, start + 0.05], ["#ffffff", accent]);
 
-  return (
-    <motion.div style={{ opacity: itemOpacity, scale: itemScale }} className="relative group">
+return (
+    <motion.div style={{ opacity: itemOpacity, scale: itemScale }} className="relative group transform-gpu will-change-[transform,opacity]">
       {/* The Pinpoint Dot */}
       <motion.div
         style={{ backgroundColor: dotColor }}
         className="absolute -left-[41px] top-2 h-4 w-4 rounded-full border-2 border-white shadow-[0_0_15px_rgba(255,255,255,0.5)]"
       />
 
-      <motion.div
+<motion.div
         style={{ opacity: itemOpacity, scale: itemScale }}
-        className="relative group drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
+        className="relative group drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] transform-gpu"
       >
         {/* The Pinpoint Dot with enhanced glow */}
         <motion.div

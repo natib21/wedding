@@ -6,6 +6,7 @@ import { TemplateProps } from "../type/wedding";
 import { Noto_Serif_Ethiopic } from 'next/font/google';
 import { useScroll, useTransform } from 'framer-motion';
 import WeddingGallerySequence from '../sections/WeddingGallerySequence';
+import EthiopianCalendar from '../sections/EthiopianCalendar';
 const images = [
   "/images/gallery/1H7A0094.JPG",
   "/images/gallery/1H7A0051.JPG",
@@ -22,6 +23,7 @@ const galleryImages = [
   "/images/gallery/1H7A0051.JPG",
 ];
 import { Parisienne } from 'next/font/google';
+import QRCode from 'react-qr-code';
 const parisienne = Parisienne({
   weight: '400',
   subsets: ['latin'],
@@ -110,7 +112,7 @@ export default function TemplateThree({ data }: TemplateProps) {
       <header className={`relative h-screen bg-gray overflow-hidden -z-10 ${notoSerif.className}`}>
 
         {/* 1. FIXED BACKGROUND LAYER (Stays in place during scroll) */}
-        <AnimatePresence >
+          <AnimatePresence >
           <motion.div
             key={currentImage}
             className="fixed inset-0 z-0 h-screen w-screen"
@@ -137,13 +139,13 @@ export default function TemplateThree({ data }: TemplateProps) {
               }}
             />
           </motion.div>
-        </AnimatePresence>
+          </AnimatePresence>
 
         {/* 2. FIXED GRADIENT OVERLAY (Darkens the bottom for text readability) */}
-        <div className="fixed inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 pointer-events-none" />
+          <div className="fixed inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 pointer-events-none" />
 
         {/* 3. SCROLLABLE CONTENT LAYER */}
-        <section className="h-full flex flex-col justify-end pb-12 relative z-30 text-center px-6 max-w-4xl mx-auto">
+          <section className="h-full flex flex-col justify-end pb-12 relative z-30 text-center px-6 max-w-4xl mx-auto">
 
           {/* Top Label: Floating at the very top */}
           <motion.div
@@ -227,7 +229,8 @@ export default function TemplateThree({ data }: TemplateProps) {
             transition={{ delay: 2 }}
           >
           </motion.div>
-        </section>
+          </section>
+
       </header>
 
 
@@ -257,7 +260,7 @@ export default function TemplateThree({ data }: TemplateProps) {
 
       <div ref={containerRef} className="relative h-[200vh] z-40">
 
-        <main className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+         <main className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
 
           <motion.div
             style={{
@@ -314,20 +317,125 @@ export default function TemplateThree({ data }: TemplateProps) {
               <div className="mt-5 space-y-4">
                 <div className="space-y-1">
                   <p className="text-sm tracking-[0.2em] text-slate-600 font-semibold uppercase" style={{ fontFamily: 'Noto Serif Ethiopic' }}>
-                    መጋቢት ፳፫ ቀን ፪፲፻፲፰ ዓ.ም
+                    ግንቦት ፳፫ ቀን ፪፲፻፲፰ ዓ.ም
                   </p>
                   <p className="text-xs text-stone-500 tracking-[0.3em] uppercase">
-                    Wednesday, April 1, 2026
+                    Saternday, May 30, 2026
                   </p>
                 </div>
                 <p className="text-xs text-stone-400 tracking-wider">Addis Ababa, Ethiopia</p>
               </div>
             </div>
           </motion.div>
-        </main>
+         </main>
         {/* <div className="h-screen" /> */}
         <WeddingGallerySequence images={galleryImages} accent={accent} />
+
+
+        <EthiopianCalendar />
+
+          {/* Thank You & QR Code Section */}
+        <section className="relative z-50 bg-black py-20 px-6">
+          <div className="max-w-2xl mx-auto text-center">
+            
+            {/* Guest Name */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="mb-12"
+            >
+              <p className="text-xs tracking-[0.4em] uppercase text-white/40 mb-3">Dear Guest</p>
+              <h3 className={`${parisienne.className} text-4xl md:text-5xl text-white`}>
+                {data.guestName || "Honored Guest"}
+              </h3>
+            </motion.div>
+
+            {/* Thank You Letter */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="mb-16 space-y-6"
+            >
+              <div className="h-px w-16 bg-white/20 mx-auto" />
+              
+              <h4 
+                className="text-2xl md:text-3xl font-light text-white"
+                style={{ fontFamily: "'Noto Serif Ethiopic', serif" }}
+              >
+                እናመሰግናለን
+              </h4>
+              <p className="text-sm tracking-[0.3em] uppercase text-white/60">Thank You</p>
+              
+              <p 
+                className="text-base md:text-lg font-light text-white/80 leading-[2] max-w-lg mx-auto"
+                style={{ fontFamily: "'Noto Serif Ethiopic', serif" }}
+              >
+                ለልዩ ቀናችን አብረውን ለመሆን ስለተስማሙ ከልብ እናመሰግናለን። የእርስዎ ፍቅር እና ድጋፍ ለእኛ ትልቅ ትርጉም አለው።
+              </p>
+              
+              <p className="text-sm font-light text-white/60 leading-relaxed max-w-md mx-auto italic">
+                Thank you for agreeing to be part of our special day. Your love and support mean everything to us.
+              </p>
+            </motion.div>
+
+            {/* QR Code */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="mb-16"
+            >
+              <div className="inline-block p-6 bg-white rounded-lg shadow-2xl">
+                <QRCode 
+                  value={data.qrCodeUrl || "https://wedding-invitation.com/rsvp"} 
+                  size={250}
+                  level="H"
+                  fgColor="#000000"
+                  bgColor="#ffffff"
+                />
+              </div>
+              <p className="mt-4 text-xs tracking-[0.3em] uppercase text-white/40">
+                Scan to RSVP
+              </p>
+            </motion.div>
+
+            {/* Final Message */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="pt-8 border-t border-white/10"
+            >
+              <p 
+                className="text-lg md:text-xl font-light text-white/90 leading-[2] mb-4"
+                style={{ fontFamily: "'Noto Serif Ethiopic', serif" }}
+              >
+                መገኘትዎ ለደስታችን ትልቅ ትርጉም አለው።
+              </p>
+              <p className="text-sm font-light text-white/60 italic max-w-md mx-auto">
+                &quot;Your presence means the world to us as we begin this new chapter together.&quot;
+              </p>
+              
+              {/* Decorative Element */}
+              <div className="mt-12 flex items-center justify-center gap-4">
+                <div className="h-px w-12 bg-white/20" />
+                <span style={{ color: accent }} className="text-2xl">&#10084;</span>
+                <div className="h-px w-12 bg-white/20" />
+              </div>
+            </motion.div>
+
+          </div>
+        </section>
+
       </div>
+
+
     </div>
   );
 }
