@@ -2,16 +2,10 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { Parisienne } from 'next/font/google';
 interface SequenceProps {
   images: string[];
   accent?: string;
 }
-const parisienne = Parisienne({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-});
 
 export default function WeddingGallerySequence({ images, accent = "#e1ff00" }: SequenceProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -34,7 +28,6 @@ export default function WeddingGallerySequence({ images, accent = "#e1ff00" }: S
   const scheduleOpacity = useTransform(smoothProgress, [0.25, 0.35, 0.75, 0.85], [0, 1, 1, 0]);
 
   // Individual point highlight logic (mapping scroll to active index)
-  const activeIndex = useTransform(smoothProgress, [0.35, 0.5, 0.65, 0.75], [0, 1, 2, 3]);
   const scale1 = useTransform(smoothProgress, [0, 0.4], [1, 1.5]);
   const blur1 = useTransform(smoothProgress, [0.2, 0.4], ["blur(0px)", "blur(20px)"]);
   const opacity1 = useTransform(smoothProgress, [0.3, 0.4], [1, 0]);
@@ -171,7 +164,14 @@ export default function WeddingGallerySequence({ images, accent = "#e1ff00" }: S
     </div>
   );
 }
-function ScheduleItem({ item, index, smoothProgress, accent }: any) {
+interface ScheduleItemProps {
+  item: { time: string; title: string; location: string };
+  index: number;
+  smoothProgress: ReturnType<typeof useSpring>;
+  accent: string;
+}
+
+function ScheduleItem({ item, index, smoothProgress, accent }: ScheduleItemProps) {
   // Each item activates at a specific scroll chunk
   const start = 0.35 + (index * 0.12);
   const end = start + 0.12;

@@ -1,12 +1,14 @@
-import { notFound } from 'next/navigation';
-import connectDB from '@/lib/mongodb';
-import Invite from '@/lib/models/Invite';
-import TemplateOne from '@/components/templates/TemplateOne';
-import TemplateTwo from '@/components/templates/TemplateTwo';
-import TemplateThree from '@/components/templates/TemplateThree';
-import { WeddingData } from '@/components/type/wedding';
+import { notFound } from "next/navigation";
+import connectDB from "@/lib/mongodb";
+import Invite from "@/lib/models/Invite";
+import TemplateThree from "@/components/templates/TemplateThree";
+import type { WeddingData } from "@/components/type/wedding";
 
-export default async function InvitationPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function InvitationPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
 
   await connectDB();
@@ -16,10 +18,9 @@ export default async function InvitationPage({ params }: { params: Promise<{ slu
     notFound();
   }
 
-  // Unified data object for the wedding (you can centralize this further)
   const weddingData: WeddingData = {
-    names: "Alex & Jordan",
-    weddingDate: "August 24, 2026",
+    names: "ሄኖክ ብርሀኔ & ፅዮን ገ/ትንሳኤ",
+    weddingDate: "2026-08-24",
     location: "The Grand Ballroom, NY",
     guestName: invite.fullName,
     slug: invite.slug,
@@ -27,8 +28,8 @@ export default async function InvitationPage({ params }: { params: Promise<{ slu
     features: ["Open Bar", "Live Band", "Photo Booth"],
     images: [
       "https://images.unsplash.com/photo-1520856729845-cee33a465223?q=80&w=2070",
-      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069"
-    ]
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069",
+    ],
   };
 
   return <TemplateThree data={weddingData} />;

@@ -1,29 +1,29 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { Plus, Users, CheckCircle, Clock, Link as LinkIcon, Phone, User, Share2 } from 'lucide-react';
+import { useState, useEffect, useCallback } from 'react';
+import { Plus, Users, CheckCircle, Clock, Phone, User, Share2 } from 'lucide-react';
+import type { IInvite } from '@/lib/models/Invite';
 
 export default function AdminDashboard() {
-  const [invites, setInvites] = useState<any[]>([]);
+  const [invites, setInvites] = useState<IInvite[]>([]);
   const [formData, setFormData] = useState({ fullName: '', phoneNumber: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
 
-  const fetchInvites = async () => {
+  const fetchInvites = useCallback(async () => {
     try {
       const res = await fetch('/api/invites');
       const data = await res.json();
       if (Array.isArray(data)) setInvites(data);
-    } catch (error) {
-      console.error('Failed to fetch invites', error);
+    } catch (err) {
+      console.error('Failed to fetch invites', err);
     } finally {
       setIsFetching(false);
     }
-  };
-
-  useEffect(() => {
-    fetchInvites();
   }, []);
+
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { fetchInvites(); }, [fetchInvites]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +41,7 @@ export default function AdminDashboard() {
         const err = await res.json();
         alert(err.error || 'Failed to add guest');
       }
-    } catch (error) {
+    } catch {
       alert('Error adding guest');
     } finally {
       setIsLoading(false);
@@ -157,7 +157,7 @@ export default function AdminDashboard() {
           </thead>
           <tbody className="divide-y divide-slate-100">
             {invites.map((invite) => (
-              <tr key={invite._id} className="hover:bg-slate-50/80 transition-colors group">
+              <tr key={String(invite._id)} className="hover:bg-slate-50/80 transition-colors group">
                 {/* Guest Profile */}
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center gap-3">
