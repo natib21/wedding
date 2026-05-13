@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence, useSpring } from 'framer-motion';
 import { TemplateProps } from "../type/wedding";
 import { Noto_Serif_Ethiopic } from 'next/font/google';
@@ -29,31 +30,13 @@ const parisienne = Parisienne({
   subsets: ['latin'],
   display: 'swap',
 });
-const positions = [
-  { left: '10%', top: '10%', rotate: -5 },
-  { left: '65%', top: '15%', rotate: 8 },
-  { left: '15%', top: '55%', rotate: -12 },
-  { left: '70%', top: '60%', rotate: 15 },
-  { left: '40%', top: '25%', rotate: 2 },
-  { left: '45%', top: '70%', rotate: -8 },
-];
-
-const colors = {
-  teal: "#006D77",
-  terracotta: "#C0522E",
-  gold: "#D4AF37",
-  cream: "#F5F5DC",
-  softBrown: "#6F4E37"
-};
-const image = ["/images/gallery/1H7A0007.JPG"]
+const ARCHIVE_IMAGE = "/images/gallery/1H7A0007.JPG";
 const notoSerif = Noto_Serif_Ethiopic({
   subsets: ['ethiopic'],
   weight: ['300', '400', '700']
 });
 export default function TemplateThree({ data }: TemplateProps) {
   const [currentImage, setCurrentImage] = useState(0);
-  const weddingDate = new Date("2026-04-01T00:00:00"); // Set your exact target date here
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, mins: 0, secs: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Track scroll progress of this specific section
@@ -81,23 +64,6 @@ export default function TemplateThree({ data }: TemplateProps) {
     }, 6000);
     return () => clearInterval(interval);
   }, []);
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const now = new Date();
-      const difference = weddingDate.getTime() - now.getTime();
-
-      if (difference > 0) {
-        setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          mins: Math.floor((difference / 1000 / 60) % 60),
-          secs: Math.floor((difference / 1000) % 60),
-        });
-      }
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [weddingDate]);
   const { scrollY } = useScroll();
 
   // As scroll moves from 0 to 300px, opacity goes from 1 to 0
@@ -204,14 +170,14 @@ export default function TemplateThree({ data }: TemplateProps) {
                   className="text-white/80 font-light leading-[1.8] text-sm md:text-base tracking-wide"
                   style={{ fontFamily: "'Noto Serif Ethiopic', serif" }}
                 >
-                  "ሙሽራይቱ ያለችው እርሱ ሙሽራ ነው፤ ቆሞ የሚሰማው ሚዜው ግን በሙሽራው ድምጽ እጅግ ደስ ይለዋል። እንግዲህ ይህ ደስታዬ ተፈጸመ።"
+                  &ldquo;ሙሽራይቱ ያለችው እርሱ ሙሽራ ነው፤ ቆሞ የሚሰማው ሚዜው ግን በሙሽራው ድምጽ እጅግ ደስ ይለዋል። እንግዲህ ይህ ደስታዬ ተፈጸመ።&rdquo;
                 </p>
 
                 {/* English Verse - Matching the theme */}
                 <p className="text-white/60 font-extralight leading-relaxed text-[11px] md:text-xs tracking-widest italic uppercase">
-                  "He that hath the bride is the bridegroom: but the friend of the bridegroom,
-                  which standeth and heareth him, rejoiceth greatly because of the bridegroom's
-                  voice: this my joy therefore is fulfilled."
+                  &ldquo;He that hath the bride is the bridegroom: but the friend of the bridegroom,
+                  which standeth and heareth him, rejoiceth greatly because of the bridegroom&apos;s
+                  voice: this my joy therefore is fulfilled.&rdquo;
                 </p>
 
                 <p className="text-[10px] tracking-[0.4em] text-white/40 font-bold uppercase pt-2">
@@ -238,10 +204,12 @@ export default function TemplateThree({ data }: TemplateProps) {
         <div>
 
           <div className="m-2 overflow-hidden  ">
-            <img
-              src={image[0]} // Using your image constant
+            <Image
+              src={ARCHIVE_IMAGE}
               alt="Archive"
-              className="h-full w-full object-cover  duration-700 group-hover:scale-110"
+              width={800}
+              height={600}
+              className="h-full w-full object-cover duration-700 group-hover:scale-110"
             />
           </div>
 
@@ -392,7 +360,7 @@ export default function TemplateThree({ data }: TemplateProps) {
             >
               <div className="inline-block p-6 bg-white rounded-lg shadow-2xl">
                 <QRCode 
-                  value={data.qrCodeUrl || "https://wedding-invitation.com/rsvp"} 
+                  value={data.rsvpLink || "https://wedding-invitation.com/rsvp"} 
                   size={250}
                   level="H"
                   fgColor="#000000"

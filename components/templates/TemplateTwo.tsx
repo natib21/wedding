@@ -1,15 +1,13 @@
 
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useSyncExternalStore } from 'react';
 import Image from 'next/image';
 import {
   motion,
-  AnimatePresence,
   useScroll,
   useTransform,
   useSpring,
-  useVelocity,
   useAnimationFrame,
   useMotionValue
 } from 'framer-motion';
@@ -45,20 +43,13 @@ const galleryImages = [
 ];
 
 export default function TemplateTwo({ data }: TemplateProps) {
-  const [isMounted, setIsMounted] = useState(false);
+  const isMounted = useSyncExternalStore(() => () => {}, () => true, () => false);
   const [isCheckingIn, setIsCheckingIn] = useState(false);
   const [gatekeeperMode, setGatekeeperMode] = useState(false);
   const [isHoveringGallery, setIsHoveringGallery] = useState(false);
   const router = useRouter();
 
-  // Scroll Refs
-  const containerRef = useRef<HTMLDivElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
-  const horizontalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   // 1. Vertical to Horizontal Scrub Logic
   const { scrollYProgress } = useScroll({
@@ -71,7 +62,7 @@ export default function TemplateTwo({ data }: TemplateProps) {
 
   // 2. Auto-scroll logic
   const autoX = useMotionValue(0);
-  useAnimationFrame((t, delta) => {
+  useAnimationFrame(() => {
     if (!isHoveringGallery) {
       autoX.set(autoX.get() - 0.5); // Constant smooth drift
       if (autoX.get() < -2000) autoX.set(0); // Simple loop reset
@@ -179,7 +170,7 @@ export default function TemplateTwo({ data }: TemplateProps) {
             className="space-y-10"
           >
             <p className={`text-3xl md:text-5xl leading-relaxed text-stone-100 italic ${notoEthiopic.className}`}>
-              "ሙሽራይቱ ያለችው እርሱ ሙሽራ ነው፤ ቆሞ የሚሰማው ሚዜው ግን በሙሽራው ድምጽ እጅግ ደስ ይለዋል።"
+              &ldquo;ሙሽራይቱ ያለችው እርሱ ሙሽራ ነው፤ ቆሞ የሚሰማው ሚዜው ግን በሙሽራው ድምጽ እጅግ ደስ ይለዋል።&rdquo;
             </p>
             <p className={`text-amber-500/60 tracking-[0.4em] text-sm font-bold ${inter.className}`}>ዮሐንስ 3:29 | JOHN 3:29</p>
           </motion.div>

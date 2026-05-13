@@ -1,18 +1,24 @@
+export interface ScheduleItem {
+  time: string;
+  event: string;
+  location?: string;
+}
+
 export interface WeddingData {
- names: string;
-    weddingDate: string;
-    heroImage?: string;
-    groomImage?: string;
-    images?: string[];
-    rsvpLink?: string;
-    location: string;
-    locationName?: string;
-    guestName?: string;
-    coordinates?: { lat: number; lng: number };
-    schedule?: Array<{ time: string; event: string }>;
-    features?: string[];
-    slug?: string;
-    status?: 'pending' | 'attended';
+  names: string;
+  weddingDate: string;
+  location: string;
+  locationName?: string;
+  guestName?: string;
+  slug?: string;
+  status?: 'pending' | 'attended';
+  heroImage?: string;
+  groomImage?: string;
+  images?: string[];
+  rsvpLink?: string;
+  coordinates?: { lat: number; lng: number };
+  schedule?: ScheduleItem[];
+  features?: string[];
 }
 
 export interface TemplateProps {

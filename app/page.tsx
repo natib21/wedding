@@ -1,47 +1,52 @@
 "use client";
-import { useState } from 'react';
-import TemplateOne from '@/components/templates/TemplateOne';
-import TemplateTwo from '@/components/templates/TemplateTwo';
-import TemplateThree from '@/components/templates/TemplateThree';
-import TemplateFour from '@/components/templates/TemplateFour';
-// ... Import other templates
+
+import { useState } from "react";
+import TemplateTwo from "@/components/templates/TemplateTwo";
+import TemplateThree from "@/components/templates/TemplateThree";
+import type { WeddingData } from "@/components/type/wedding";
+
+type TemplateName = "modern" | "elegant";
+
+const WEDDING_DATA: WeddingData = {
+  names: "ሄኖክ ብርሀኔ & ፅዮን ገ/ትንሳኤ",
+  weddingDate: "2026-08-24",
+  location: "The Grand Ballroom, NY",
+  features: ["Open Bar", "Live Band", "Photo Booth"],
+  rsvpLink: "https://yourwedding.com/rsvp",
+  images: ["/b1.jpg", "/b2.jpg", "/b3.jpg"],
+};
+
+const TEMPLATES: Record<TemplateName, { label: string; component: typeof TemplateTwo }> = {
+  modern: { label: "Modern", component: TemplateTwo },
+  elegant: { label: "Elegant", component: TemplateThree },
+};
 
 export default function Home() {
-  const [template, setTemplate] = useState('classic');
+  const [activeTemplate, setActiveTemplate] = useState<TemplateName>("modern");
 
-  // Unified data object to pass to all templates
-  const weddingData = {
-    names: "ሄኖክ ብርሀኔ & ፅዮን ገ/ትንሳኤ",
-    date: "August 24, 2026",
-    location: "The Grand Ballroom, NY",
-    features: ["Open Bar", "Live Band", "Photo Booth"],
-    qrValue: "https://yourwedding.com/rsvp",
-    images: ["/b1.jpg", "/b2.jpg", "/b3.jpg"]
-  };
-
-  const renderTemplate = () => {
-    switch (template) {
-      // case 'classic': return <TemplateOne data={weddingData} />;
-      case 'modern': return <TemplateTwo data={weddingData} />;
-      case 'elegant': return <TemplateThree data={weddingData} />;
-      case 'boho': return <TemplateFour data={weddingData} />;
-
-      default: return <TemplateTwo data={weddingData} />;
-    }
-  };
+  const Template = TEMPLATES[activeTemplate].component;
 
   return (
     <div className="min-h-screen relative">
-      {/* Template Switcher (Sticky Control) */}
-      <div className="fixed top-5 right-5 z-50 bg-white/80 p-2 rounded-lg shadow-md flex gap-2">
-        <button onClick={() => setTemplate('classic')} className="px-3 py-1 bg-amber-600 text-white rounded">Classic</button>
-        <button onClick={() => setTemplate('modern')} className="px-3 py-1 bg-blue-600 text-white rounded">Modern</button>
-        <button onClick={() => setTemplate('elegant')} className="px-3 py-1 bg-blue-600 text-white rounded">Elegant</button>
-        <button onClick={() => setTemplate('boho')} className="px-3 py-1 bg-blue-600 text-white rounded">Boho</button>
+      <nav className="fixed top-5 right-5 z-50 bg-white/80 backdrop-blur-sm p-2 rounded-lg shadow-md flex gap-2">
+        {(Object.entries(TEMPLATES) as [TemplateName, (typeof TEMPLATES)[TemplateName]][]).map(
+          ([key, { label }]) => (
+            <button
+              key={key}
+              onClick={() => setActiveTemplate(key)}
+              className={`px-4 py-1.5 rounded text-sm font-medium transition-colors ${
+                activeTemplate === key
+                  ? "bg-indigo-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              }`}
+            >
+              {label}
+            </button>
+          )
+        )}
+      </nav>
 
-      </div>
-
-      {renderTemplate()}
+      <Template data={WEDDING_DATA} />
     </div>
   );
 }
