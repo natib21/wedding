@@ -9,7 +9,7 @@ type TemplateName = "modern" | "elegant";
 
 const WEDDING_DATA: WeddingData = {
   names: "ሄኖክ ብርሀኔ & ፅዮን ገ/ትንሳኤ",
-  weddingDate: "2026-08-24",
+  weddingDate: "2026-03-30",
   location: "The Grand Ballroom, NY",
   features: ["Open Bar", "Live Band", "Photo Booth"],
   rsvpLink: "https://yourwedding.com/rsvp",
@@ -17,12 +17,12 @@ const WEDDING_DATA: WeddingData = {
 };
 
 const TEMPLATES: Record<TemplateName, { label: string; component: typeof TemplateTwo }> = {
-  modern: { label: "Modern", component: TemplateTwo },
   elegant: { label: "Elegant", component: TemplateThree },
+  modern: { label: "Modern", component: TemplateTwo },
 };
 
 export default function Home() {
-  const [activeTemplate, setActiveTemplate] = useState<TemplateName>("modern");
+  const [activeTemplate, setActiveTemplate] = useState<TemplateName>("elegant");
 
   const Template = TEMPLATES[activeTemplate].component;
 

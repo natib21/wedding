@@ -23,8 +23,8 @@ const galleryImages = [
   "/images/gallery/1H7A0094.JPG",   // you can replace with new images
   "/images/gallery/1H7A0051.JPG",
 ];
-import { Parisienne } from 'next/font/google';
 import QRCode from 'react-qr-code';
+import { Parisienne } from 'next/font/google';
 const parisienne = Parisienne({
   weight: '400',
   subsets: ['latin'],
@@ -200,31 +200,31 @@ export default function TemplateThree({ data }: TemplateProps) {
       </header>
 
 
-      <section className=" m-6 flex justify-center z-50" style={{ backgroundColor: accent }}>
-        <div>
+    
+<section className="m-4 flex justify-center z-50" style={{ backgroundColor: accent }}>
+  <div className="relative w-full h-50 md:h-175 overflow-hidden"> 
+    
+    {/* 2. Use the 'fill' prop instead of fixed width/height */}
+    <Image
+      src={ARCHIVE_IMAGE}
+      alt="Archive"
+      fill // This makes it take up 100% of the nearest relative parent
+      className="object-cover duration-700 hover:scale-110 pt-5 px-10 pb-15"
+      sizes="100vw"
+      priority
+    />
 
-          <div className="m-2 overflow-hidden  ">
-            <Image
-              src={ARCHIVE_IMAGE}
-              alt="Archive"
-              width={800}
-              height={600}
-              className="h-full w-full object-cover duration-700 group-hover:scale-110"
-            />
-          </div>
+    {/* 3. Overlay Content (Absolute positioned to stay on top of the 'fill' image) */}
+    <div className="absolute bottom-0 left-4 right-0 p-6 ">
+      <p className="text-sm text-black font-extralight leading-relaxed italic">
+        Photo Album
+      </p>
+    </div>
 
-          {/* Content with Padding */}
-          <div className="px-2 pb-8  text-left">
-
-            <p className="mt-2 text-sm text-black font-extralight leading-relaxed italic ">
-              Photo Album
-            </p>
-          </div>
-
-          {/* Subtle Inner Glow */}
-          <div className="absolute inset-0 pointer-events-none rounded-2xl ring-1 ring-inset ring-white/10" />
-        </div>
-      </section>
+    {/* Subtle Inner Glow */}
+    <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-white/10" />
+  </div>
+</section>
 
       <div ref={containerRef} className="relative h-[200vh] z-40">
 

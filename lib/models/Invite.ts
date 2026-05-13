@@ -4,6 +4,7 @@ export interface IInvite extends Document {
   fullName: string;
   phoneNumber: string;
   slug: string;
+  isAdmin: boolean;
   status: 'pending' | 'attended';
   createdAt: Date;
 }
@@ -16,13 +17,17 @@ const InviteSchema = new Schema<IInvite>({
   },
   phoneNumber: { 
     type: String, 
-    required: true 
+    required: false 
   },
   slug: { 
     type: String, 
     required: true, 
     unique: true 
   },
+  isAdmin: {
+  type: Boolean,
+  default: false
+},
   status: { 
     type: String, 
     enum: ['pending', 'attended'], 
