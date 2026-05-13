@@ -12,14 +12,14 @@ const images = [
   "/images/gallery/1H7A0094.JPG",
   "/images/gallery/1H7A0051.JPG",
   // "/images/gallery/1H7A9963.JPG",
-  "/images/gallery/1H7A0460.jpg"
+  "/images/gallery/1H7A0460.JPG"
 ];
 const galleryImages = [
   // "/images/gallery/1H7A0094.JPG",
   // "/images/gallery/1H7A0051.JPG",
-  "/images/gallery/1H7A0460.jpg",
+  "/images/gallery/1H7A0460.JPG",
   // "/images/gallery/1H7A0007.JPG",
-  "images/gallery/1H7A0334.jpg",
+  "images/gallery/1H7A0334.JPG",
   "/images/gallery/1H7A0094.JPG",   // you can replace with new images
   "/images/gallery/1H7A0051.JPG",
 ];
