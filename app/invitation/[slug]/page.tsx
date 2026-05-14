@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import connectDB from "@/lib/mongodb";
 import Invite from "@/lib/models/Invite";
-import TemplateThree from "@/components/templates/TemplateThree";
+import TemplateThreeWithBoot from "@/components/invitation/TemplateThreeWithBoot";
 import type { WeddingData } from "@/components/type/wedding";
 
 export default async function InvitationPage({
@@ -32,5 +32,5 @@ export default async function InvitationPage({
     ],
   };
 
-  return <TemplateThree data={weddingData} />;
+  return <TemplateThreeWithBoot data={weddingData} />;
 }

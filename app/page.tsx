@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import TemplateTwo from "@/components/templates/TemplateTwo";
 import TemplateThree from "@/components/templates/TemplateThree";
 import type { WeddingData } from "@/components/type/wedding";
+import CriticalImageBoot from "@/components/CriticalImageBoot";
+import { getCriticalUrlsForTemplate, type HomeTemplateId } from "@/lib/weddingImageUrls";
 
-type TemplateName = "modern" | "elegant";
+type TemplateName = HomeTemplateId;
 
 const WEDDING_DATA: WeddingData = {
   names: "ሄኖክ ብርሀኔ & ፅዮን ገ/ትንሳኤ",
@@ -25,10 +27,11 @@ export default function Home() {
   const [activeTemplate, setActiveTemplate] = useState<TemplateName>("elegant");
 
   const Template = TEMPLATES[activeTemplate].component;
+  const bootUrls = useMemo(() => getCriticalUrlsForTemplate(activeTemplate), [activeTemplate]);
 
   return (
     <div className="min-h-screen relative">
-      <nav className="fixed top-5 right-5 z-50 bg-white/80 backdrop-blur-sm p-2 rounded-lg shadow-md flex gap-2">
+      <nav className="fixed top-5 right-5 z-[220] bg-white/80 backdrop-blur-sm p-2 rounded-lg shadow-md flex gap-2">
         {(Object.entries(TEMPLATES) as [TemplateName, (typeof TEMPLATES)[TemplateName]][]).map(
           ([key, { label }]) => (
             <button
@@ -46,7 +49,9 @@ export default function Home() {
         )}
       </nav>
 
-      <Template data={WEDDING_DATA} />
+      <CriticalImageBoot key={activeTemplate} urls={bootUrls}>
+        <Template data={WEDDING_DATA} />
+      </CriticalImageBoot>
     </div>
   );
 }
