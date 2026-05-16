@@ -7,6 +7,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { TemplateProps } from "../type/wedding";
 import { Noto_Serif_Ethiopic } from "next/font/google";
 import EthiopianCalendar from "../sections/EthiopianCalendar";
+import WeddingVenueMap from "../sections/WeddingVenueMap";
 import {
   TEMPLATE_THREE_ARCHIVE_IMAGE,
   TEMPLATE_THREE_GALLERY_SEQUENCE_IMAGES,
@@ -24,6 +25,16 @@ const WeddingGallerySequence = dynamic(() => import("../sections/WeddingGalleryS
       aria-hidden
     >
       <div className="absolute inset-0 animate-pulse bg-gradient-to-b from-neutral-900 to-black" />
+    </div>
+  ),
+});
+
+const TemplateTwoGallery = dynamic(() => import("../sections/TemplateTwoGallery"), {
+  ssr: true,
+  loading: () => (
+    <div className="py-20 bg-black relative overflow-hidden" aria-hidden>
+      <div className="max-w-7xl mx-auto px-6 mb-12 h-16 w-64 rounded bg-white/5 animate-pulse" />
+      <div className="h-[620px] mx-6 rounded-lg bg-white/5 animate-pulse" />
     </div>
   ),
 });
@@ -144,12 +155,12 @@ export default function TemplateThree({ data }: TemplateProps) {
                 >
                   &ldquo;ሙሽራይቱ ያለችው እርሱ ሙሽራ ነው፤ ቆሞ የሚሰማው ሚዜው ግን በሙሽራው ድምጽ እጅግ ደስ ይለዋል። እንግዲህ ይህ ደስታዬ ተፈጸመ።&rdquo;
                 </p>
-
+{/* 
                 <p className="text-white/60 font-extralight leading-relaxed text-[11px] md:text-xs tracking-widest italic uppercase">
                   &ldquo;He that hath the bride is the bridegroom: but the friend of the bridegroom, which standeth
                   and heareth him, rejoiceth greatly because of the bridegroom&apos;s voice: this my joy therefore is
                   fulfilled.&rdquo;
-                </p>
+                </p> */}
 
                 <p className="text-[10px] tracking-[0.4em] text-white/40 font-bold uppercase pt-2">John 3:29</p>
               </div>
@@ -165,7 +176,7 @@ export default function TemplateThree({ data }: TemplateProps) {
         </section>
       </header>
 
-      <section className="m-4 flex justify-center z-50" style={{ backgroundColor: accent }}>
+      {/* <section className="m-4 flex justify-center z-50" style={{ backgroundColor: accent }}>
         <div className="relative w-full h-50 md:h-175 overflow-hidden min-h-[200px] md:min-h-[28rem]">
           <Image
             src={ARCHIVE_IMAGE}
@@ -184,10 +195,10 @@ export default function TemplateThree({ data }: TemplateProps) {
 
           <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-white/10" />
         </div>
-      </section>
+      </section> */}
 
       <div ref={containerRef} className="relative h-[200vh] z-40">
-        <main className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+        <main className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden -z-10">
           <motion.div
             style={{
               scale,
@@ -241,16 +252,22 @@ export default function TemplateThree({ data }: TemplateProps) {
                   </p>
                   <p className="text-xs text-stone-500 tracking-[0.3em] uppercase">Saternday, May 30, 2026</p>
                 </div>
-                <p className="text-xs text-stone-400 tracking-wider">Addis Ababa, Ethiopia</p>
+                <p className="text-xs text-stone-400 tracking-wider">
+                  {data.locationName ? `${data.locationName} · ` : ""}
+                  {data.location}
+                </p>
               </div>
             </div>
           </motion.div>
         </main>
 
-        <WeddingGallerySequence images={galleryImages} accent={accent} />
+        {/* <WeddingGallerySequence images={galleryImages} accent={accent} /> */}
 
         <EthiopianCalendar />
 
+        <WeddingVenueMap data={data} accent={accent} />
+
+        <TemplateTwoGallery />
         <section className="relative z-50 bg-black py-20 px-6">
           <div className="max-w-2xl mx-auto text-center">
             <motion.div
@@ -304,14 +321,21 @@ export default function TemplateThree({ data }: TemplateProps) {
             >
               <div className="inline-block p-6 bg-white rounded-lg shadow-2xl">
                 <QRCode
-                  value={data.rsvpLink || "https://wedding-invitation.com/rsvp"}
+                  value={
+                    data.rsvpLink ||
+                    (data.slug
+                      ? `${typeof window !== "undefined" ? window.location.origin : ""}/admin/check-in/${data.slug}`
+                      : "")
+                  }
                   size={250}
                   level="H"
                   fgColor="#000000"
                   bgColor="#ffffff"
                 />
               </div>
-              <p className="mt-4 text-xs tracking-[0.3em] uppercase text-white/40">Scan to RSVP</p>
+              <p className="mt-4 text-xs tracking-[0.3em] uppercase text-white/40">
+                Present at entrance (admin scan)
+              </p>
             </motion.div>
 
             <motion.div

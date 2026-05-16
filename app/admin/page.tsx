@@ -5,8 +5,10 @@ import { motion, AnimatePresence, useMotionValue, useTransform, PanInfo } from '
 import { 
   Plus, Users, CheckCircle, Clock, Phone, User, Search, X, 
   Copy, Check, Sparkles, ChevronDown, Send, MessageSquare, Link2, Edit2,
-  Shield
+  Shield, LogOut
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import GuestCreatedSuccess from '@/components/admin/GuestCreatedSuccess';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription } from '@/components/ui/drawer';
 import { Input } from '@/components/ui/input';
@@ -23,8 +25,9 @@ interface IInvite {
   fullName: string;
   phoneNumber?: string;
   slug: string;
-  isAdmin: boolean;        // ← Added
+  isAdmin: boolean;
   status: 'pending' | 'attended';
+  rsvpLink?: string;
   createdAt: string;
 }
 
@@ -421,6 +424,7 @@ function TableRow({
 
 // Main Dashboard Component
 export default function AdminDashboard() {
+  const router = useRouter();
   const [invites, setInvites] = useState<IInvite[]>([]);
   const [formData, setFormData] = useState<FormData>({ fullName: '', phoneNumber: '',isAdmin: false });
   const [isLoading, setIsLoading] = useState(false);
@@ -431,6 +435,7 @@ export default function AdminDashboard() {
   const [editFormData, setEditFormData] = useState<FormData>({ fullName: '', phoneNumber: '',isAdmin: false });
   const [searchQuery, setSearchQuery] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
+  const [createdInvite, setCreatedInvite] = useState<IInvite | null>(null);
   const [shareDrawerOpen, setShareDrawerOpen] = useState(false);
   const [shareInvite, setShareInvite] = useState<IInvite | null>(null);
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
@@ -439,6 +444,10 @@ export default function AdminDashboard() {
   const fetchInvites = useCallback(async () => {
     try {
       const res = await fetch('/api/invites');
+      if (res.status === 401) {
+        router.push('/admin/login');
+        return;
+      }
       const data = await res.json();
       if (Array.isArray(data)) setInvites(data);
     } catch (err) {
@@ -447,11 +456,22 @@ export default function AdminDashboard() {
     } finally {
       setIsFetching(false);
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => { 
     fetchInvites(); 
   }, [fetchInvites]);
+
+  const handleLogout = async () => {
+    await fetch('/api/auth/logout', { method: 'POST' });
+    router.push('/admin/login');
+  };
+
+  const closeSuccessSheet = () => {
+    setShowSuccess(false);
+    setCreatedInvite(null);
+    setIsSheetOpen(false);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -462,17 +482,16 @@ export default function AdminDashboard() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           fullName: formData.fullName,
-          phoneNumber: formData.phoneNumber || undefined
+          phoneNumber: formData.phoneNumber || undefined,
+          isAdmin: formData.isAdmin,
         }),
       });
       if (res.ok) {
-        setFormData({ fullName: '', phoneNumber: '',isAdmin: false });
+        const created: IInvite = await res.json();
+        setFormData({ fullName: '', phoneNumber: '', isAdmin: false });
+        setCreatedInvite(created);
         setShowSuccess(true);
         toast.success('Guest added successfully!');
-        setTimeout(() => {
-          setShowSuccess(false);
-          setIsSheetOpen(false);
-        }, 1500);
         fetchInvites();
       } else {
         const err = await res.json();
@@ -596,6 +615,14 @@ const res = await fetch('/api/invites', {
               </h1>
               <p className="text-slate-500 text-sm">Wedding Registry</p>
             </div>
+            <Button
+              variant="outline"
+              onClick={handleLogout}
+              className="hidden sm:flex items-center gap-2 bg-slate-800/50 border-slate-700/50 text-slate-300 hover:text-white"
+            >
+              <LogOut className="size-4" />
+              Log out
+            </Button>
             {/* Desktop Add Button */}
             <motion.button
               whileTap={tapAnimation}
@@ -813,27 +840,8 @@ const res = await fetch('/api/invites', {
           className="bg-slate-900 border-slate-700/50 rounded-t-3xl max-h-[85vh] lg:max-h-none lg:rounded-none lg:inset-y-0 lg:right-0 lg:left-auto lg:w-[400px] lg:rounded-l-3xl"
         >
           <AnimatePresence mode="wait">
-            {showSuccess ? (
-              <motion.div
-                key="success"
-                // variants={successVariants}
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                className="flex flex-col items-center justify-center py-16"
-              >
-                <div className="size-20 rounded-full bg-emerald-500/20 flex items-center justify-center mb-4">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.2, type: "spring", stiffness: 400 }}
-                  >
-                    <Check className="size-10 text-emerald-400" />
-                  </motion.div>
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-1">Invitation Created!</h3>
-                <p className="text-slate-400 text-sm">Guest has been added successfully</p>
-              </motion.div>
+            {showSuccess && createdInvite ? (
+              <GuestCreatedSuccess key="success" guest={createdInvite} onDone={closeSuccessSheet} />
             ) : (
               <motion.div
                 key="form"

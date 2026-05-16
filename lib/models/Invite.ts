@@ -6,6 +6,8 @@ export interface IInvite extends Document {
   slug: string;
   isAdmin: boolean;
   status: 'pending' | 'attended';
+  /** Admin-only gatekeeper URL encoded in the guest QR code */
+  rsvpLink?: string;
   createdAt: Date;
 }
 
@@ -32,6 +34,10 @@ const InviteSchema = new Schema<IInvite>({
     type: String, 
     enum: ['pending', 'attended'], 
     default: 'pending' 
+  },
+  rsvpLink: {
+    type: String,
+    required: false,
   },
   createdAt: { 
     type: Date, 

@@ -23,7 +23,7 @@ const EthiopianCalendar = () => {
   const startPadding = 5; // Starts on Saturday
 
   return (
-    <section className="py-12 px-4 bg-[#FDFCF8]">
+    <section className="py-12 px-4 bg-[#FDFCF8] ">
       <div className="max-w-sm mx-auto text-center">
         {/* Compact Header */}
         <header className="mb-6">

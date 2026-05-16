@@ -22,13 +22,13 @@ export const TEMPLATE_THREE_CRITICAL_URLS: string[] = [
 ];
 
 const templateTwoGalleryRaw = [
-  "/images/gallery/1H7A0007.JPG",
-  "/images/gallery/1H7A0015.jpg",
   "/images/gallery/1H7A0063.JPG",
   "/images/gallery/1H7A0114.jpg",
   "/images/gallery/1H7A0199.JPG",
+  "/images/gallery/1H7A0015.jpg",
   "/images/gallery/1H7A0238.JPG",
   "/images/gallery/1H7A0051.JPG",
+  "/images/gallery/1H7A0007.JPG",
   "/images/gallery/1H7A0460.jpg",
   "/images/gallery/1H7A0334.jpg",
   "/images/gallery/1H7A0094.JPG",

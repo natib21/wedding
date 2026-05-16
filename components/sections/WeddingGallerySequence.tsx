@@ -145,7 +145,7 @@ export default function WeddingGallerySequence({ images, accent = "#e1ff00" }: S
           />
         </motion.div>
 
-        <motion.div
+        {/* <motion.div
           style={{ x: scheduleX, opacity: scheduleOpacity }}
           className="absolute left-8 top-1/2 -translate-y-1/2 z-[100] flex flex-col gap-10 border-l border-white/30 pl-8 py-10 transform-gpu will-change-transform"
         >
@@ -174,8 +174,8 @@ export default function WeddingGallerySequence({ images, accent = "#e1ff00" }: S
           <div className="flex flex-col gap-10 border-l border-white/30 pl-8 py-4" />
           {scheduleItems.map((item, index) => (
             <ScheduleItem key={index} item={item} index={index} progress={progress} accent={accent} />
-          ))}
-        </motion.div>
+          ))} 
+        </motion.div> */}
 
         <div className="absolute inset-0 z-40 pointer-events-none bg-[radial-gradient(circle,transparent_40%,rgba(0,0,0,0.4)_100%)]" />
 
@@ -198,57 +198,57 @@ interface ScheduleItemProps {
   accent: string;
 }
 
-function ScheduleItem({ item, index, progress, accent }: ScheduleItemProps) {
-  const start = 0.35 + index * 0.12;
-  const end = start + 0.12;
+// function ScheduleItem({ item, index, progress, accent }: ScheduleItemProps) {
+//   const start = 0.35 + index * 0.12;
+//   const end = start + 0.12;
 
-  const itemOpacity = useTransform(progress, [start - 0.05, start, end, end + 0.05], [0.3, 1, 1, 0.3]);
-  const itemScale = useTransform(progress, [start, start + 0.05], [0.9, 1]);
-  const dotColor = useTransform(progress, [start, start + 0.05], ["#ffffff", accent]);
+//   const itemOpacity = useTransform(progress, [start - 0.05, start, end, end + 0.05], [0.3, 1, 1, 0.3]);
+//   const itemScale = useTransform(progress, [start, start + 0.05], [0.9, 1]);
+//   const dotColor = useTransform(progress, [start, start + 0.05], ["#ffffff", accent]);
 
-  return (
-    <motion.div
-      style={{ opacity: itemOpacity, scale: itemScale }}
-      className="relative group transform-gpu will-change-[transform,opacity] drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
-    >
-      <motion.div
-        style={{ backgroundColor: dotColor }}
-        className="absolute -left-[41px] top-2 h-4 w-4 rounded-full border-2 border-white shadow-[0_0_15px_rgba(255,255,255,0.5)]"
-      />
+//   return (
+//     <motion.div
+//       style={{ opacity: itemOpacity, scale: itemScale }}
+//       className="relative group transform-gpu will-change-[transform,opacity] drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
+//     >
+//       <motion.div
+//         style={{ backgroundColor: dotColor }}
+//         className="absolute -left-[41px] top-2 h-4 w-4 rounded-full border-2 border-white shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+//       />
 
-      <div className="flex flex-col text-left">
-        <span
-          className="text-[10px] uppercase tracking-[0.2em] text-white mb-1"
-          style={{
-            textShadow: "0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.4)",
-          }}
-        >
-          {item.time}
-        </span>
+//       <div className="flex flex-col text-left">
+//         <span
+//           className="text-[10px] uppercase tracking-[0.2em] text-white mb-1"
+//           style={{
+//             textShadow: "0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.4)",
+//           }}
+//         >
+//           {item.time}
+//         </span>
 
-        <h3
-          className="text-white text-lg font-bold leading-tight max-w-[200px]"
-          style={{
-            textShadow: `
-          0 0 7px rgba(255,255,255,0.9),
-          0 0 15px rgba(255,255,255,0.5),
-          0 0 25px rgba(255,255,255,0.2)
-        `,
-          }}
-        >
-          {item.title}
-        </h3>
+//         <h3
+//           className="text-white text-lg font-bold leading-tight max-w-[200px]"
+//           style={{
+//             textShadow: `
+//           0 0 7px rgba(255,255,255,0.9),
+//           0 0 15px rgba(255,255,255,0.5),
+//           0 0 25px rgba(255,255,255,0.2)
+//         `,
+//           }}
+//         >
+//           {item.title}
+//         </h3>
 
-        <p
-          className="text-white/90 text-xs mt-1 font-light italic"
-          style={{
-            fontFamily: "Noto Serif Ethiopic",
-            textShadow: "0 0 8px rgba(255,255,255,0.6)",
-          }}
-        >
-          {item.location}
-        </p>
-      </div>
-    </motion.div>
-  );
-}
+//         <p
+//           className="text-white/90 text-xs mt-1 font-light italic"
+//           style={{
+//             fontFamily: "Noto Serif Ethiopic",
+//             textShadow: "0 0 8px rgba(255,255,255,0.6)",
+//           }}
+//         >
+//           {item.location}
+//         </p>
+//       </div>
+//     </motion.div>
+//   );
+// }

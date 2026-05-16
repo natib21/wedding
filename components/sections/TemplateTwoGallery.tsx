@@ -10,8 +10,8 @@ const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "700", "
 export default function TemplateTwoGallery() {
   return (
     <section className="py-20 bg-black relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 mb-12">
-        <h2 className={`text-6xl text-white ${playfair.className}`}>Moments of Love</h2>
+      <div className="max-w-7xl mx-auto px-6 ">
+        <h2 className={`text-5xl text-white ${playfair.className}`}>Moments of Love</h2>
       </div>
 
       <div className="h-[620px] flex items-center relative overflow-x-auto scroll-smooth no-scrollbar snap-x snap-mandatory px-6 md:px-10">

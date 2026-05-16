@@ -6,13 +6,16 @@ import TemplateThree from "@/components/templates/TemplateThree";
 import type { WeddingData } from "@/components/type/wedding";
 import CriticalImageBoot from "@/components/CriticalImageBoot";
 import { getCriticalUrlsForTemplate, type HomeTemplateId } from "@/lib/weddingImageUrls";
+import { DEFAULT_WEDDING_VENUE } from "@/lib/weddingVenue";
 
 type TemplateName = HomeTemplateId;
 
 const WEDDING_DATA: WeddingData = {
   names: "ሄኖክ ብርሀኔ & ፅዮን ገ/ትንሳኤ",
   weddingDate: "2026-03-30",
-  location: "The Grand Ballroom, NY",
+  location: DEFAULT_WEDDING_VENUE.location,
+  locationName: DEFAULT_WEDDING_VENUE.locationName,
+  coordinates: DEFAULT_WEDDING_VENUE.coordinates,
   features: ["Open Bar", "Live Band", "Photo Booth"],
   rsvpLink: "https://yourwedding.com/rsvp",
   images: ["/b1.jpg", "/b2.jpg", "/b3.jpg"],
