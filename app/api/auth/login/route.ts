@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
-import Invite from "@/lib/models/Invite";
 import { SESSION_COOKIE, sessionCookieOptions, createSessionToken } from "@/lib/auth/session";
+import { findInviteForLogin } from "@/lib/findInviteForLogin";
 
 export async function POST(request: Request) {
   try {
@@ -16,12 +16,7 @@ export async function POST(request: Request) {
 
     await connectDB();
 
-    const query: { fullName: string; phoneNumber?: string } = { fullName };
-    if (phoneNumber) {
-      query.phoneNumber = phoneNumber;
-    }
-
-    const invite = await Invite.findOne(query);
+    const invite = await findInviteForLogin(fullName, phoneNumber);
 
     if (!invite) {
       return NextResponse.json(
