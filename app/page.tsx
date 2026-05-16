@@ -34,7 +34,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen relative">
-      <nav className="fixed top-5 right-5 z-[220] bg-white/80 backdrop-blur-sm p-2 rounded-lg shadow-md flex gap-2">
+      {/* <nav className="fixed top-5 right-5 z-[220] bg-white/80 backdrop-blur-sm p-2 rounded-lg shadow-md flex gap-2">
         {(Object.entries(TEMPLATES) as [TemplateName, (typeof TEMPLATES)[TemplateName]][]).map(
           ([key, { label }]) => (
             <button
@@ -50,7 +50,7 @@ export default function Home() {
             </button>
           )
         )}
-      </nav>
+      </nav> */}
 
       <CriticalImageBoot key={activeTemplate} urls={bootUrls}>
         <Template data={WEDDING_DATA} />
