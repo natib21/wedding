@@ -110,11 +110,11 @@ export default function TemplateThree({ data }: TemplateProps) {
 
         <div className="fixed inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 pointer-events-none" />
 
-        <section className="h-full flex flex-col justify-end pb-12 relative z-30 text-center px-6 max-w-4xl mx-auto">
+        <section className="h-full flex flex-col justify-end  relative z-30 text-center px-6 max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="absolute top-16 left-0 right-0 flex flex-col items-center gap-1"
+            className="absolute top-5 left-0 right-0 flex flex-col items-center gap-1"
           >
             <span
               className={`${parisienne.className} text-8xl md:text-5xl font-extralight`}
