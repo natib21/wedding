@@ -1,8 +1,8 @@
 /** Default venue — East West | Gofa Mebrat, Addis Ababa */
 export const DEFAULT_WEDDING_VENUE = {
-  locationName: "East West | Gofa Mebrat",
+  locationName: "Mekoninoch Kibeb | Tor hayloch",
   location: "Addis Ababa, Ethiopia",
-  coordinates: { lat: 8.9897, lng: 38.7464 },
+  coordinates: { lat: 9.0099965, lng: 38.7282175},
 } as const;
 
 export function getVenueFromData(data: {

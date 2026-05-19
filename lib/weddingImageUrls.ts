@@ -32,6 +32,17 @@ const templateTwoGalleryRaw = [
   "/images/gallery/1H7A0460.jpg",
   "/images/gallery/1H7A0334.jpg",
   "/images/gallery/1H7A0094.JPG",
+  "/images/gallery/1H7A0057.JPG",
+  "/images/gallery/1H7A0063.JPG",
+  "/images/gallery/1H7A0199.JPG",
+  "/images/gallery/1H7A0250.JPG",
+  "/images/gallery/1H7A0413.JPG",
+  "/images/gallery/1H7A0476.JPG",
+  "/images/gallery/1H7A9778.JPG",
+  "/images/gallery/1H7A9877.JPG",
+  "/images/gallery/1H7A9953.JPG",
+  "/images/gallery/1H7A9963.JPG",
+  "/images/gallery/1H7A9995.JPG"
 ];
 
 export const TEMPLATE_TWO_HERO_IMAGE = "/images/gallery/1H7A0460.JPG";

@@ -8,6 +8,7 @@ export interface WeddingData {
   names: string;
   weddingDate: string;
   location: string;
+  time?:string;
   locationName?: string;
   guestName?: string;
   slug?: string;

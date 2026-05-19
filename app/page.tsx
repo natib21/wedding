@@ -13,6 +13,7 @@ type TemplateName = HomeTemplateId;
 const WEDDING_DATA: WeddingData = {
   names: "ሄኖክ ብርሀኔ & ፅዮን ገ/ትንሳኤ",
   weddingDate: "2026-03-30",
+  time: "11:00",
   location: DEFAULT_WEDDING_VENUE.location,
   locationName: DEFAULT_WEDDING_VENUE.locationName,
   coordinates: DEFAULT_WEDDING_VENUE.coordinates,

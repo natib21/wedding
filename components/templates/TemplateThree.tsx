@@ -34,7 +34,7 @@ const TemplateTwoGallery = dynamic(() => import("../sections/TemplateTwoGallery"
   loading: () => (
     <div className="py-20 bg-black relative overflow-hidden" aria-hidden>
       <div className="max-w-7xl mx-auto px-6 mb-12 h-16 w-64 rounded bg-white/5 animate-pulse" />
-      <div className="h-[620px] mx-6 rounded-lg bg-white/5 animate-pulse" />
+      <div className="h-155 mx-6 rounded-lg bg-white/5 animate-pulse" />
     </div>
   ),
 });
@@ -153,7 +153,8 @@ export default function TemplateThree({ data }: TemplateProps) {
                   className="text-white/80 font-light leading-[1.8] text-sm md:text-base tracking-wide"
                   style={{ fontFamily: "'Noto Serif Ethiopic', serif" }}
                 >
-                  &ldquo;ሙሽራይቱ ያለችው እርሱ ሙሽራ ነው፤ ቆሞ የሚሰማው ሚዜው ግን በሙሽራው ድምጽ እጅግ ደስ ይለዋል። እንግዲህ ይህ ደስታዬ ተፈጸመ።&rdquo;
+                  &ldquo;ጸሎቴን ያልከለከለኝ ፣ምህረቱንም ከእኔ ያላራቀ፣
+               እግዚአብሄር ይመስገን።&rdquo;
                 </p>
 {/* 
                 <p className="text-white/60 font-extralight leading-relaxed text-[11px] md:text-xs tracking-widest italic uppercase">
@@ -162,7 +163,7 @@ export default function TemplateThree({ data }: TemplateProps) {
                   fulfilled.&rdquo;
                 </p> */}
 
-                <p className="text-[10px] tracking-[0.4em] text-white/40 font-bold uppercase pt-2">John 3:29</p>
+                <p className="text-[10px] tracking-[0.4em] text-white/40 font-bold uppercase pt-2">መዝ.65፡20</p>
               </div>
             </motion.div>
           </motion.div>
@@ -242,21 +243,30 @@ export default function TemplateThree({ data }: TemplateProps) {
                 </p>
               </div>
 
-              <div className="mt-5 space-y-4">
-                <div className="space-y-1">
-                  <p
-                    className="text-sm tracking-[0.2em] text-slate-600 font-semibold uppercase"
-                    style={{ fontFamily: "Noto Serif Ethiopic" }}
-                  >
-                    ግንቦት ፳፫ ቀን ፪፲፻፲፰ ዓ.ም
-                  </p>
-                  <p className="text-xs text-stone-500 tracking-[0.3em] uppercase">Saternday, May 30, 2026</p>
-                </div>
-                <p className="text-xs text-stone-400 tracking-wider">
-                  {data.locationName ? `${data.locationName} · ` : ""}
-                  {data.location}
-                </p>
-              </div>
+             <div className="mt-5 space-y-4">
+  <div className="space-y-1">
+    <p
+      className="text-sm tracking-[0.2em] text-slate-600 font-semibold uppercase"
+      style={{ fontFamily: "Noto Serif Ethiopic" }}
+    >
+      ግንቦት ፳፪ ቀን ፪፻፲፰ ዓ.ም
+    </p>
+    
+    {/* Added Ethiopian Time here */}
+    <p 
+      className="text-xs tracking-[0.15em] text-slate-500 font-medium"
+      style={{ fontFamily: "Noto Serif Ethiopic" }}
+    >
+      {data.time ? `ከቀኑ ${data.time} ሰዓት` : "ከቀኑ 11:00 ሰዓት"}
+    </p>
+
+    <p className="text-xs text-stone-500 tracking-[0.3em] uppercase">Saturday, May 30, 2026</p>
+  </div>
+  <p className="text-xs text-stone-400 tracking-wider">
+    {data.locationName ? `${data.locationName} · ` : ""}
+    {data.location}
+  </p>
+</div>
             </div>
           </motion.div>
         </main>
@@ -304,7 +314,7 @@ export default function TemplateThree({ data }: TemplateProps) {
                 className="text-base md:text-lg font-light text-white/80 leading-[2] max-w-lg mx-auto"
                 style={{ fontFamily: "'Noto Serif Ethiopic', serif" }}
               >
-                ለልዩ ቀናችን አብረውን ለመሆን ስለተስማሙ ከልብ እናመሰግናለን። የእርስዎ ፍቅር እና ድጋፍ ለእኛ ትልቅ ትርጉም አለው።
+                ለልዩ ቀናችን አብረውን ለመሆን ስለተስማሙ ከልብ እናመሰግናለን።
               </p>
 
               <p className="text-sm font-light text-white/60 leading-relaxed max-w-md mx-auto italic">
@@ -345,15 +355,15 @@ export default function TemplateThree({ data }: TemplateProps) {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="pt-8 border-t border-white/10"
             >
-              <p
+              {/* <p
                 className="text-lg md:text-xl font-light text-white/90 leading-[2] mb-4"
                 style={{ fontFamily: "'Noto Serif Ethiopic', serif" }}
               >
                 መገኘትዎ ለደስታችን ትልቅ ትርጉም አለው።
-              </p>
-              <p className="text-sm font-light text-white/60 italic max-w-md mx-auto">
+              </p> */}
+              {/* <p className="text-sm font-light text-white/60 italic max-w-md mx-auto">
                 &quot;Your presence means the world to us as we begin this new chapter together.&quot;
-              </p>
+              </p> */}
 
               <div className="mt-12 flex items-center justify-center gap-4">
                 <div className="h-px w-12 bg-white/20" />
