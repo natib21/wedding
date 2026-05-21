@@ -199,7 +199,7 @@ export default function TemplateThree({ data }: TemplateProps) {
       </section> */}
 
       <div ref={containerRef} className="relative h-[200vh] z-40">
-        <main className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden -z-10">
+        <main className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden -z-10 opacity-80">
           <motion.div
             style={{
               scale,
@@ -257,7 +257,7 @@ export default function TemplateThree({ data }: TemplateProps) {
       className="text-xs tracking-[0.15em] text-slate-500 font-medium"
       style={{ fontFamily: "Noto Serif Ethiopic" }}
     >
-      {data.time ? `ከቀኑ ${data.time} ሰዓት` : "ከቀኑ 11:00 ሰዓት"}
+      {data.time ? `ከቀኑ ${data.time} ሰዓት` : "ከቀኑ 12:00 ሰዓት"}
     </p>
 
     <p className="text-xs text-stone-500 tracking-[0.3em] uppercase">Saturday, May 30, 2026</p>
@@ -287,9 +287,9 @@ export default function TemplateThree({ data }: TemplateProps) {
               transition={{ duration: 0.6 }}
               className="mb-12"
             >
-              <p className="text-xs tracking-[0.4em] uppercase text-white/40 mb-3">Dear Guest</p>
+              {/* <p className="text-xs tracking-[0.4em] uppercase text-white/40 mb-3">Dear Guest</p> */}
               <h3 className={`${parisienne.className} text-4xl md:text-5xl text-white`}>
-                {data.guestName || "Honored Guest"}
+                {data.guestName || "Dear Guest"}
               </h3>
             </motion.div>
 
@@ -314,11 +314,11 @@ export default function TemplateThree({ data }: TemplateProps) {
                 className="text-base md:text-lg font-light text-white/80 leading-[2] max-w-lg mx-auto"
                 style={{ fontFamily: "'Noto Serif Ethiopic', serif" }}
               >
-                ለልዩ ቀናችን አብረውን ለመሆን ስለተስማሙ ከልብ እናመሰግናለን።
+                ለልዩ ቀናችን አብረውን ስለሆኑ እናመሰግናለን።
               </p>
 
               <p className="text-sm font-light text-white/60 leading-relaxed max-w-md mx-auto italic">
-                Thank you for agreeing to be part of our special day. Your love and support mean everything to us.
+                Thank you for being part of our special day. Your love and support mean everything to us.
               </p>
             </motion.div>
 
