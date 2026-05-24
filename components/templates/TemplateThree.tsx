@@ -287,7 +287,7 @@ export default function TemplateThree({ data }: TemplateProps) {
               transition={{ duration: 0.6 }}
               className="mb-12"
             >
-              {/* <p className="text-xs tracking-[0.4em] uppercase text-white/40 mb-3">Dear Guest</p> */}
+               <p className={`${parisienne.className} text-4xl md:text-5xl text-white`}>Dear Guest</p> 
               <h3 className={`${parisienne.className} text-4xl md:text-5xl text-white`}>
                 {data.guestName || "Dear Guest"}
               </h3>
